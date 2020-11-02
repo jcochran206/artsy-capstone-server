@@ -1,6 +1,6 @@
-# Express Boilerplate
+# Artsy Capstone Server
 
-This is a boilerplate project used for starting new projects!
+**Team: Michaela Bateman, Jerrad Moon, Jonathan Cochran, Sacha Sedriks**
 
 ## Set up
 
