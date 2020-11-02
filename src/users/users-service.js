@@ -5,9 +5,9 @@ const regexValidation = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&])[\S]+
 
 const UsersService = {
 
-    hasUserWithUserName(db, user_name) {
-        return db('mtg_users')
-            .where({ user_name })
+    hasUserWithUserName(db, username) {
+        return db('users')
+            .where({ username })
             .first()
             .then(user => !!user)
     },
@@ -16,8 +16,8 @@ const UsersService = {
         if (password.length < 8) {
             return 'Password must be longer than 8 characters'
         }
-        if (password.length > 72) {
-            return 'Password must be shorter than 72 characters'
+        if (password.length > 50) {
+            return 'Password must be shorter than 50 characters'
         }
         if (password.startsWith(' ') || password.endsWith(' ')) {
             return 'Password may not start or end with spaces'
@@ -33,20 +33,10 @@ const UsersService = {
 
     insertUser(db, newUser) {
         return db.insert(newUser)
-            .into('mtg_users')
+            .into('users')
             .returning('*')
             .then(([user]) => user)
     },
-
-    serializeUser(user) {
-        return {
-            id: xss(user.id),
-            user_name: xss(user.user_name),
-            full_name: xss(user.full_name),
-            nickname: xss(user.nickname),
-            date_created: new Date(user.date_created),
-        }
-    }
 }
 
 module.exports = UsersService

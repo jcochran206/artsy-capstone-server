@@ -1,15 +1,26 @@
 const express = require('express')
+const xss = require('xss')
 const usersRouter = express.Router()
 const jsonParser = express.json()
 const path = require('path')
 const UsersService = require('./users-service')
 
+const serializeUser = user => ({
+    id: user.id,
+    username: xss(user.username),
+    pwd: user.pwd,
+    email: user.email,
+    bio: user.bio,
+    date_created: new Date(user.date_created)
+})
+
+
 usersRouter
     .post('/', jsonParser, (req, res, next) => {
 
-        const { full_name, nickname, user_name, password } = req.body
+        const { username, pwd, email } = req.body
 
-        for (const field of Object.keys({ full_name, user_name, password })) {
+        for (const field of Object.keys({ username, pwd, email })) {
             if (!req.body[field]) {
                 return res.status(400).json({ error: `Missing ${field} in request body.` })
             }
@@ -23,7 +34,7 @@ usersRouter
 
         UsersService.hasUserWithUserName(
             req.app.get('db'),
-            user_name
+            username
         )
             .then(hasUser => {
                 if (hasUser) {
@@ -33,10 +44,10 @@ usersRouter
                 return UsersService.hashPassword(password)
                     .then(hashedPass => {
                         const newUser = {
-                            user_name,
-                            password: hashedPass,
-                            full_name,
-                            nickname,
+                            username,
+                            pwd: hashedPass,
+                            email,
+                            bio,
                             date_created: 'now()',
                         }
 
