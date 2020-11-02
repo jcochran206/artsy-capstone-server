@@ -3,9 +3,9 @@ const xss = require('xss')
 const usersRouter = express.Router()
 const jsonParser = express.json()
 const path = require('path')
-const UsersService = require('./users-service')
+const usersService = require('./users-service')
 
-const serializeUser = user => ({
+const serializeUser = (user) => ({
     id: user.id,
     username: xss(user.username),
     pwd: user.pwd,
@@ -16,23 +16,53 @@ const serializeUser = user => ({
 
 
 usersRouter
-    .post('/', jsonParser, (req, res, next) => {
+    .route('/')
+    .get((req, res, next) => {
+    const knexInstance = req.app.get('db')
+    usersService.getUsers(knexInstance)
+        .then(users => {
+            res.json(users.map(serializeUser))
+        })
+        .catch(next)
+    })
+    .post(jsonParser, (req, res, next) => {
 
-        const { username, pwd, email } = req.body
+        const { username, pwd, email } = req.body;
+        
+        console.log("username:", username, "pwd:", pwd)
 
-        for (const field of Object.keys({ username, pwd, email })) {
-            if (!req.body[field]) {
-                return res.status(400).json({ error: `Missing ${field} in request body.` })
-            }
-        }
+        // for (const field of Object.keys({ username, pwd, email })) {
+        //     if (!req.body[field]) {
+        //         return res.status(400).json({ error: `Missing ${field} in request body.` })
+        //     }
+        // }
+        for (const field of ['username', 'pwd', 'email'])
+            if(field === null)
+                return res.status(400).json({
+                    error:{
+                        message: `Missing ${field} in request body.`
+                    }
+                })
+                const newUser = {username, pwd, email};
+                usersService.insertUser(
+                    req.app.get('db'),
+                    newUser
+                )
+                .then(user => {
+                    res
+                    .status(201)
+                    .location('/users/:userid')
+                    .json(serializeUser(user))
+                })
+                .catch(next)
 
-        const passErr = UsersService.validatePass(password)
+        const passErr = usersService.validatePass(pwd)
 
         if (passErr) {
             return res.status(400).json({ error: passErr })
         }
 
-        UsersService.hasUserWithUserName(
+        usersService.hasUserWithUserName(
             req.app.get('db'),
             username
         )
@@ -41,7 +71,7 @@ usersRouter
                     return res.status(400).json({ error: `Username already exists` })
                 }
 
-                return UsersService.hashPassword(password)
+                return usersService.hashPassword(pwd)
                     .then(hashedPass => {
                         const newUser = {
                             username,
@@ -51,14 +81,15 @@ usersRouter
                             date_created: 'now()',
                         }
 
-                        return UsersService.insertUser(req.app.get('db'), newUser)
+                        return usersService.insertUser(req.app.get('db'), newUser)
                             .then(user => {
                                 res.status(201)
                                     .location(path.posix.join(req.originalUrl, `/${user.id}`))
-                                    .json(UsersService.serializeUser(user))
+                                    .json(usersService.serializeUser(user))
                             })
                     })
             })
+            .catch(next)
     })
 
 module.exports = usersRouter
