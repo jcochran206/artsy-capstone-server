@@ -39,14 +39,41 @@ const UsersService = {
                 '*'
             )
     },
-    
+    //get user by Id
+    getUsersById(db, userid) {
+        return db
+            .from('users')
+            .select(
+                '*'
+            )
+            .where('users.userid', userid)
+            .first()
+    },
 
+    //insert user
     insertUser(db, newUser) {
         return db.insert(newUser)
             .into('users')
             .returning('*')
             .then(([user]) => user)
     },
+    //update user
+    updateUser(db, userid, newUser) {
+        return db('users')
+            .where({
+                userid: userid
+            })
+            .update(newUser, returning = true)
+            .returning('*')
+    },
+    //delete user
+    deleteUser(db, userid) {
+        return db('users')
+            .where({
+                userid: userid
+            })
+            .delete()
+    }
 }
 
 module.exports = UsersService
