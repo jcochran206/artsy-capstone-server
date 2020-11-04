@@ -4,6 +4,7 @@ const usersRouter = express.Router()
 const jsonParser = express.json()
 const path = require('path')
 const usersService = require('./users-service')
+const { updateUser } = require('./users-service')
 
 const serializeUser = (user) => ({
     id: user.id,
@@ -88,6 +89,46 @@ usersRouter
                                     .json(usersService.serializeUser(user))
                             })
                     })
+            })
+            .catch(next)
+    })
+usersRouter
+    .route('/:userid')
+    .all((req, res, next) => {
+        const {userid} = req.params;
+        usersService.getUsersById(req.app.get('db'), userid)
+        .then(userid => {
+            if(!userid) {
+                return res 
+                    .status(404)
+                    .send({error: {message: `user does not exist`}})
+            }
+            res.userid = userid
+            next()
+        })
+        .catch(next)
+    })
+    .get((req, res) => {
+        res.json(serializeUser(res.userid))
+    })
+    .put(jsonParser, (req, res, next) => {
+        const {userid, username, pwd, email} = req.body
+        const userToUpdate = {userid, username, pwd, email}
+
+        const numberOfValues = Object.values(userToUpdate).filter(Boolean).length
+        if (numberOfValues === 0)
+            return res.status(400).json({
+                error: {
+                    message: `Request body does not contain userid, pwd, email`
+                }
+            })
+            usersService.updateUser(
+                req.app.get('db'),
+                req.params.userid,
+                userToUpdate
+            )
+            .then(updateUser => {
+                res.status(200).json(serializeUser(updateUser[0]))
             })
             .catch(next)
     })
