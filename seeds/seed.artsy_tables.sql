@@ -1,12 +1,30 @@
 BEGIN;
 
 TRUNCATE
-    users
+    users,
+    posts,
+    comments,
+    likes
     RESTART IDENTITY CASCADE;
 
 INSERT INTO users (username, pwd, email)
 VALUES
     ('joeb', 'joebpassword', 'joeb@email.com'),
     ('josht', 'joshtpassword', 'josht@email.com');
+
+INSERT INTO posts (user_id, title, pic, desc_post)
+VALUES
+    ('1', 'test', 'url', 'test post need image'),
+    ('2', 'test2', 'url2', 'test post need image2');
+
+INSERT INTO comments (post_id, user_id, desc_comment)
+VALUES
+    ('1', '1', 'here goes comment for one'),
+    ('2', '2', 'here goes comment for two');
+
+INSERT INTO likes (post_id, user_id, isLiked)
+VALUES
+    ('1', '1', 'true'),
+    ('2', '2', 'true');
 
 COMMIT;
