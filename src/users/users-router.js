@@ -30,8 +30,6 @@ usersRouter
 
         const { username, pwd, email } = req.body;
 
-        console.log("username:", username, "pwd:", pwd)
-
         // for (const field of Object.keys({ username, pwd, email })) {
         //     if (!req.body[field]) {
         //         return res.status(400).json({ error: `Missing ${field} in request body.` })
