@@ -24,6 +24,7 @@ authRouter.post("/login", jsonParser, (req, res, next) => {
                     error: "Incorrect username or password",
                 });
             console.log('loginUser.pwd: ', loginUser.pwd)    
+            console.log('dbUser: ', dbUser)    
             console.log('dbUser.pwd: ', dbUser.pwd)    
             return AuthService.comparePasswords(
                 loginUser.pwd,
@@ -35,7 +36,8 @@ authRouter.post("/login", jsonParser, (req, res, next) => {
                     });
 
                 const sub = dbUser.username;
-                const payload = { user_id: dbUser.id };
+                const payload = { user_id: dbUser.userid };
+                console.log(sub, payload)
                 res.send({
                     authToken: AuthService.createJwt(sub, payload),
                 });
