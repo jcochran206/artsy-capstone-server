@@ -30,30 +30,18 @@ usersRouter
 
         const { username, pwd, email } = req.body;
 
-        // for (const field of Object.keys({ username, pwd, email })) {
-        //     if (!req.body[field]) {
-        //         return res.status(400).json({ error: `Missing ${field} in request body.` })
-        //     }
-        // }
-        for (const field of ['username', 'pwd', 'email'])
-            if (field === null)
+        for (const field of ['username', 'pwd', 'email']) {
+            if (field === null) {
                 return res.status(400).json({
                     error: {
                         message: `Missing ${field} in request body.`
                     }
                 })
-        const newUser = { username, pwd, email };
-        usersService.insertUser(
-            req.app.get('db'),
-            newUser
-        )
-            .then(user => {
-                res
-                    .status(201)
-                    .location('/users/:userid')
-                    .json(serializeUser(user))
-            })
-            .catch(next)
+            }
+        }
+        const { bio } = req.body
+        const newUser = { username, pwd, email, bio };
+        
 
         const passErr = usersService.validatePass(pwd)
 
@@ -84,7 +72,7 @@ usersRouter
                             .then(user => {
                                 res.status(201)
                                     .location(path.posix.join(req.originalUrl, `/${user.id}`))
-                                    .json(usersService.serializeUser(user))
+                                    .json(serializeUser(user))
                             })
                     })
             })
