@@ -23,7 +23,7 @@ const UsersService = {
         if (pwd.startsWith(' ') || pwd.endsWith(' ')) {
             return 'Password may not start or end with spaces'
         }
-        if(!regexValidation.test(pwd)) {
+        if (!regexValidation.test(pwd)) {
             return 'password must contain at least one upper-case, lower-case, number, and special character'
         }
     },
