@@ -4,7 +4,6 @@ const usersRouter = express.Router()
 const jsonParser = express.json()
 const path = require('path')
 const usersService = require('./users-service')
-const { updateUser } = require('./users-service') // (By Jerrad): why is this line here?
 
 const serializeUser = (user) => ({
     id: user.id,

@@ -4,10 +4,11 @@ const commentsRouter = express.Router()
 const jsonParser = express.json()
 const path = require('path')
 const commentsService = require('./comments-service')
+const UsersService = require('../users/users-service')
 
 const serializeComment = (comment) => ({
     id: comment.id,
-    desc: xss(comment.desc),
+    desc: xss(comment.desc_comment),
 })
 
 
@@ -74,9 +75,37 @@ commentsRouter
         res.json(serializeComment(res.commentId))
     })
     .patch(jsonParser, (req, res, next) => {
-        const { id, desc } = req.body
+        const { desc } = req.body
+
+        if (desc === null)
+            return res.status(400).json({
+                error: {
+                    message: `missing ${desc} in request body`
+                }
+            })
+
         const updatedComment = { id, desc }
 
+        UsersService.updateUser(
+            req.app.get('db'),
+            req.params.userid,
+            userToUpdate
+        )
+            .then(updateUser => {
+                res.status(200).json(serializeComment(updatedComment))
+            })
+            .catch(next)
+    })
+    .delete((req, res, next) => {
+        const { id } = req.params
+        commentsService.deleteComment(
+            req.app.get('db'),
+            id
+        )
+        .then(rowsAffected => {
+            res.status(204).end()
+        })
+        .catch(next)
     })
 
 module.exports = commentsRouter
