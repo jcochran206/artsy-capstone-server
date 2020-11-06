@@ -27,7 +27,7 @@ postRouter
             .catch(next)
     })
     .post(requireAuth, jsonParser, (req, res, next) => {
-        const { user_id, title, pic, desc_post } = req.body
+        const { title, pic, desc_post } = req.body
         const newPost = { title, pic, desc_post }
 
         for (const [key, value] of Object.entries(newPost)) {
@@ -37,7 +37,7 @@ postRouter
                 })
             }
         }
-        newPost.user_id = user_id   // via requireAuth > AuthService
+        newPost.user_id = req.user.userid   // via requireAuth > AuthService
 
         postService.insertPost(
             req.app.get('db'),
