@@ -12,10 +12,10 @@ const postService = {
     //get by Id
     getPostsById(db, id) {
         return db
-        .from('posts')
-        .select('*')
-        .where({id: id})
-        .first()
+            .from('posts')
+            .select('*')
+            .where({ id: id })
+            .first()
     },
     //insert post
     insertPost(db, newPost) {
@@ -23,6 +23,9 @@ const postService = {
             .into('posts')
             .returning('*')
             .then(([post]) => post)
+            // .then(post => {
+            //     postService.getPostsById(db, post.id)
+            // })
     },
     //update post
     updatePost(db, id, newPost) {
