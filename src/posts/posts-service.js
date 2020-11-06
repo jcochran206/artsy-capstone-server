@@ -14,7 +14,7 @@ const postService = {
         return db
         .from('posts')
         .select('*')
-        .where(posts.id, id)
+        .where({id: id})
         .first()
     },
     //insert post
@@ -25,7 +25,7 @@ const postService = {
             .then(([post]) => post)
     },
     //update post
-    updatepost(db, id, newPost) {
+    updatePost(db, id, newPost) {
         return db('posts')
             .where({
                 id: id
@@ -34,7 +34,7 @@ const postService = {
             .returning('*')
     },
     //delete post
-    deletepost(db, id) {
+    deletePost(db, id) {
         return db('posts')
             .where({
                 id: id
