@@ -8,7 +8,8 @@ const commentsService = {
             .from('comments')
             .select(
             'comments.id',
-            'comments.desc_comment'
+            'comments.comment',
+            'comments.user_id'
             )
     },
 
@@ -16,7 +17,7 @@ const commentsService = {
         return db
             .from('comments')
             .select('*')
-            .where('comments.id', id)
+            .where('comments.id', commentId)
             .first()
     },
 
@@ -38,11 +39,11 @@ const commentsService = {
             .returning('*')
     },
 
-    deleteComment(db, userid) {
+    deleteComment(db, userid, commentId) {
         return db('comments')
             .where({
                 userid: userid,
-                comment: id
+                comment: commentId
             })
             .delete()
     },

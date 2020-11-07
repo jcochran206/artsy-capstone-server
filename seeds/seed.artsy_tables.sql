@@ -18,7 +18,7 @@ VALUES
     ('1', 'test', 'url', 'test post need image'),
     ('2', 'test2', 'url2', 'test post need image2');
 
-INSERT INTO comments (post_id, user_id, desc_comment)
+INSERT INTO comments (post_id, user_id, comment)
 VALUES
     ('1', '1', 'here goes comment for one'),
     ('2', '2', 'here goes comment for two');

@@ -2,13 +2,15 @@ const express = require('express')
 const xss = require('xss')
 const commentsRouter = express.Router()
 const jsonParser = express.json()
+const { requireAuth }= require('../middleware/jwt-auth')
 const path = require('path')
 const commentsService = require('./comments-service')
 const UsersService = require('../users/users-service')
 
 const serializeComment = (comment) => ({
     id: comment.id,
-    desc: xss(comment.desc_comment),
+    comment: xss(comment.comment),
+    user_id: comment.user_id,
 })
 
 
@@ -22,19 +24,19 @@ commentsRouter
             })
             .catch(next)
     })
-    .post(jsonParser, (req, res, next) => {
-        const desc = req.body
-        const knexInstance = req.app.get('db')
+    .post(jsonParser, requireAuth, (req, res, next) => {
 
-        if (desc === null)
+        const { comment } = req.body
+        const knexInstance = req.app.get('db')
+        console.log(req.user);
+        if (comment === null)
             return res.status(400).json({
                 error: {
                     message: `Missing description in request body.`
                 }
             })
 
-        const newComment = desc;
-
+        const newComment = { comment, user_id: req.user.id }
         commentsService.insertComment(
             knexInstance,
             newComment
@@ -50,7 +52,7 @@ commentsRouter
 
 commentsRouter
     .route('/:commentId')
-    .all((req, res, next) => {
+    .get((req, res, next) => {
         const { commentId } = req.params;
         const knexInstance = req.app.get('db')
 
@@ -58,21 +60,18 @@ commentsRouter
             knexInstance,
             commentId
         )
-            .then(commentId => {
-                if (!commentId) {
+            .then(comment => {
+                if (!comment) {
                     return res.status(404).json({
                         error: {
                             message: `comment does not exist`
                         }
                     })
                 }
-                res.commentId = commentId
+                res.status(200).json(comment)
                 next()
             })
             .catch(next)
-    })
-    .get((req, res) => {
-        res.json(serializeComment(res.commentId))
     })
     .patch(jsonParser, (req, res, next) => {
         const { desc } = req.body
@@ -102,10 +101,10 @@ commentsRouter
             req.app.get('db'),
             id
         )
-        .then(rowsAffected => {
-            res.status(204).end()
-        })
-        .catch(next)
+            .then(rowsAffected => {
+                res.status(204).end()
+            })
+            .catch(next)
     })
 
 module.exports = commentsRouter
