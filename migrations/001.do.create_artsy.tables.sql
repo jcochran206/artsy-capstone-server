@@ -13,7 +13,8 @@ CREATE TABLE posts (
   user_id INTEGER references users (userid) ON DELETE CASCADE,
   title varchar(50) NOT NULL,
   pic varchar(200) NOT NULL,
-  desc_post varchar(144) NOT NULL
+  desc_post varchar(144) NOT NULL,
+  date_created TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
 CREATE TABLE comments (
