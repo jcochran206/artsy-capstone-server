@@ -6,7 +6,10 @@ const commentsService = {
     getComments(db) {
         return db
             .from('comments')
-            .select('*')
+            .select(
+            'comments.id',
+            'comments.desc_comment'
+            )
     },
 
     getCommentById(db, commentId) {

@@ -4,7 +4,6 @@ const usersRouter = express.Router()
 const jsonParser = express.json()
 const path = require('path')
 const usersService = require('./users-service')
-const { updateUser } = require('./users-service') // (By Jerrad): why is this line here?
 
 const serializeUser = (user) => ({
     id: user.id,
@@ -19,43 +18,29 @@ const serializeUser = (user) => ({
 usersRouter
     .route('/')
     .get((req, res, next) => {
-    const knexInstance = req.app.get('db')
-    usersService.getUsers(knexInstance)
-        .then(users => {
-            res.json(users.map(serializeUser))
-        })
-        .catch(next)
+        const knexInstance = req.app.get('db')
+        usersService.getUsers(knexInstance)
+            .then(users => {
+                res.json(users.map(serializeUser))
+            })
+            .catch(next)
     })
     .post(jsonParser, (req, res, next) => {
 
         const { username, pwd, email } = req.body;
-        
-        console.log("username:", username, "pwd:", pwd)
 
-        // for (const field of Object.keys({ username, pwd, email })) {
-        //     if (!req.body[field]) {
-        //         return res.status(400).json({ error: `Missing ${field} in request body.` })
-        //     }
-        // }
-        for (const field of ['username', 'pwd', 'email'])
-            if(field === null)
+        for (const field of ['username', 'pwd', 'email']) {
+            if (field === null) {
                 return res.status(400).json({
-                    error:{
+                    error: {
                         message: `Missing ${field} in request body.`
                     }
                 })
-                const newUser = {username, pwd, email};
-                usersService.insertUser(
-                    req.app.get('db'),
-                    newUser
-                )
-                .then(user => {
-                    res
-                    .status(201)
-                    .location('/users/:userid')
-                    .json(serializeUser(user))
-                })
-                .catch(next)
+            }
+        }
+        const { bio } = req.body
+        const newUser = { username, pwd, email, bio };
+        
 
         const passErr = usersService.validatePass(pwd)
 
@@ -86,7 +71,7 @@ usersRouter
                             .then(user => {
                                 res.status(201)
                                     .location(path.posix.join(req.originalUrl, `/${user.id}`))
-                                    .json(usersService.serializeUser(user))
+                                    .json(serializeUser(user))
                             })
                     })
             })
@@ -95,25 +80,25 @@ usersRouter
 usersRouter
     .route('/:userid')
     .all((req, res, next) => {
-        const {userid} = req.params;
+        const { userid } = req.params;
         usersService.getUsersById(req.app.get('db'), userid)
-        .then(userid => {
-            if(!userid) {
-                return res 
-                    .status(404)
-                    .send({error: {message: `user does not exist`}})
-            }
-            res.userid = userid
-            next()
-        })
-        .catch(next)
+            .then(userid => {
+                if (!userid) {
+                    return res
+                        .status(404)
+                        .send({ error: { message: `user does not exist` } })
+                }
+                res.userid = userid
+                next()
+            })
+            .catch(next)
     })
     .get((req, res) => {
         res.json(serializeUser(res.userid))
     })
     .put(jsonParser, (req, res, next) => {
-        const {userid, username, pwd, email} = req.body
-        const userToUpdate = {userid, username, pwd, email}
+        const { userid, username, pwd, email } = req.body
+        const userToUpdate = { userid, username, pwd, email }
 
         const numberOfValues = Object.values(userToUpdate).filter(Boolean).length
         if (numberOfValues === 0)
@@ -122,11 +107,11 @@ usersRouter
                     message: `Request body does not contain userid, pwd, email`
                 }
             })
-            usersService.updateUser(
-                req.app.get('db'),
-                req.params.userid,
-                userToUpdate
-            )
+        usersService.updateUser(
+            req.app.get('db'),
+            req.params.userid,
+            userToUpdate
+        )
             .then(updateUser => {
                 res.status(200).json(serializeUser(updateUser[0]))
             })

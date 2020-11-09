@@ -10,7 +10,8 @@ TRUNCATE
 INSERT INTO users (username, pwd, email)
 VALUES
     ('joeb', 'joebpassword', 'joeb@email.com'),
-    ('josht', 'joshtpassword', 'josht@email.com');
+    ('josht', 'joshtpassword', 'josht@email.com'),
+    ('satchmo', '$2a$12$HVLCtFkXdAURl8qLp7uam.3a9.k3lxadLV3PDGgGBLGGhpUstXxWq', 'satchmo@email.com');
 
 INSERT INTO posts (user_id, title, pic, desc_post)
 VALUES
@@ -28,3 +29,7 @@ VALUES
     ('2', '2', 'true');
 
 COMMIT;
+
+-- NOTE TO SELF
+-- bcrypt.hash('aaAA11!!', 12).then(hash => console.log({ hash }
+-- hash: '$2a$12$HVLCtFkXdAURl8qLp7uam.3a9.k3lxadLV3PDGgGBLGGhpUstXxWq'

@@ -1,19 +1,56 @@
 const express = require('express')
 const xss = require('xss')
-const postRouter = express.Router()
-const jsonParser = express.json()
 const path = require('path')
 const postService = require('./posts-service')
+const { requireAuth } = require('../middleware/jwt-auth')
 // const UsersService = require('../users/users-service')
+
+const postRouter = express.Router()
+const jsonParser = express.json()
 
 const serializePost = (post) => ({
     id: post.id,
-    userid: post.userid,
-    title: post.title,
+    user_id: post.user_id,
+    title: xss(post.title),
     pic: post.pic,
-    desc_post: post.desc_post,
+    desc_post: xss(post.desc_post),
 })
 
+postRouter
+    .route('/')
+    .get((req, res, next) => {
+        const knexInstance = req.app.get('db')
+        postService.getPosts(knexInstance)
+            .then(posts => {
+                res.json(posts.map(serializePost))
+            })
+            .catch(next)
+    })
+    .post(requireAuth, jsonParser, (req, res, next) => {
+        const { title, pic, desc_post } = req.body
+        const newPost = { title, pic, desc_post }
+
+        for (const [key, value] of Object.entries(newPost)) {
+            if (value == null) {
+                return res.status(400).json({
+                    error: `Missing '${key} in request body`
+                })
+            }
+        }
+        newPost.user_id = req.user.userid   // via requireAuth > AuthService
+
+        postService.insertPost(
+            req.app.get('db'),
+            newPost
+        )
+            .then(post => {
+                res
+                    .status(201)
+                    .location(path.posix.join(req.originalUrl, `/${post.id}`))
+                    .json(serializePost(post))
+            })
+            .catch(next)
+    })
 
 postRouter
     .route('/:id')
@@ -21,10 +58,10 @@ postRouter
         const { id } = req.params;
         postService.getPostsById(req.app.get('db'), id)
             .then(post => {
-                if(!post) {
+                if (!post) {
                     return res
                         .status(404)
-                        .send({error: {message: `User doesn't exist.`} })
+                        .send({ error: { message: `User doesn't exist.` } })
                 }
                 res.json(post)
                 next()
@@ -48,14 +85,14 @@ postRouter
     })
     //update
     .put(jsonParser, (req, res, next) => {
-        const {title, desc_post} = req.body;
+        const { title, desc_post } = req.body;
         const postToUpdate = {
             title,
             desc_post
         }
 
         const numberOfValues = Object.values(postToUpdate).filter(Boolean).length
-        if(numberOfValues === 0)
+        if (numberOfValues === 0)
             return res.status(400).json({
                 error: {
                     message: `Request body must content either title or description`
@@ -67,10 +104,10 @@ postRouter
             req.params.id,
             postToUpdate
         )
-        .then(updatePost => {
-            res.status(200).json(serializePost(updatePost[0]))
-        })
-        .catch(next)
+            .then(updatePost => {
+                res.status(200).json(serializePost(updatePost[0]))
+            })
+            .catch(next)
     })
     // delete route 
     .delete((req, res, next) => {
@@ -79,21 +116,11 @@ postRouter
             req.app.get('db'),
             req.params.id
         )
-        .then(numRowsAffected => {
-            res.status(204).end()
-        })
-        .catch(next)
-    })
-
-postRouter
-    .route('/')
-    .get((req, res, next) => {
-        const knexInstance = req.app.get('db')
-        postService.getPosts(knexInstance)
-            .then(posts => {
-                res.json(posts.map(serializePost))
+            .then(numRowsAffected => {
+                res.status(204).end()
             })
             .catch(next)
     })
+
 
 module.exports = postRouter
