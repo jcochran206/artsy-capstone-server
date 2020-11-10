@@ -43,7 +43,9 @@ const postService = {
                 id: id
             })
             .delete()
-    }
+    },
+
+
 }
 
 module.exports = postService

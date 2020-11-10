@@ -14,6 +14,7 @@ const serializePost = (post) => ({
     title: xss(post.title),
     pic: post.pic,
     desc_post: xss(post.desc_post),
+    date_created: post.date_created,
 })
 
 postRouter
@@ -64,6 +65,21 @@ postRouter
                         .send({ error: { message: `User doesn't exist.` } })
                 }
                 res.json(post)
+                next()
+            })
+            .catch(next)
+    })
+    //joined get 
+    .get((req, res, next) => {
+        const { id } = req.params;
+        postService.getPostsByUserId(req.app.get('db'), id)
+            .then(post => {
+                if (!post) {
+                    return res
+                        .status(404)
+                        .send({ error: { message: 'user and post id does not match' } })
+                }
+                res.json(serializePost(post))
                 next()
             })
             .catch(next)

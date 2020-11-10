@@ -15,8 +15,9 @@ VALUES
 
 INSERT INTO posts (user_id, title, pic, desc_post)
 VALUES
-    ('1', 'test', 'url', 'test post need image'),
-    ('2', 'test2', 'url2', 'test post need image2');
+    ('1', 'Warholia', 'https://res.cloudinary.com/thinkful/image/upload/v1604880998/imagepool/dsdzhpfz21hm9bhbv65g.jpg', '15 minutes of fame'),
+    ('2', 'Ocean View', 'https://res.cloudinary.com/thinkful/image/upload/v1604877945/imagepool/pmia5osmnz9or0f2jpph.jpg', 'a homage to Diebenkorn'),
+    ('3', 'Signal vs Noise', 'https://res.cloudinary.com/thinkful/image/upload/v1604876790/imagepool/ngznhebncn5ztibempwg.jpg', 'while gazing at a Cy Twombly');
 
 INSERT INTO comments (post_id, user_id, comment)
 VALUES
