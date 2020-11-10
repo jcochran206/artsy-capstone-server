@@ -12,6 +12,7 @@ const serializePost = (post) => ({
     title: post.title,
     pic: post.pic,
     desc_post: post.desc_post,
+    date_created: post.date_created,
 })
 
 postUserRouter
