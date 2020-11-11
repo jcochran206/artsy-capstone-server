@@ -5,9 +5,8 @@ const postService = {
     getPosts(db) {
         return db
             .from('posts')
-            .select(
-                '*'
-            )
+            .select('*')
+            .orderBy('date_created', 'desc')
     },
     //get by Id
     getPostsById(db, id) {
