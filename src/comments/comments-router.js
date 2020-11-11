@@ -25,7 +25,6 @@ commentsRouter
             .catch(next)
     })
     .post(jsonParser, requireAuth, (req, res, next) => {
-
         const { comment } = req.body
         const knexInstance = req.app.get('db')
         console.log(req.user);
@@ -51,14 +50,14 @@ commentsRouter
     })
 
 commentsRouter
-    .route('/:commentId')
+    .route('/:id')
     .get((req, res, next) => {
-        const { commentId } = req.params;
+        const { id } = req.params;
         const knexInstance = req.app.get('db')
 
         commentsService.getCommentById(
             knexInstance,
-            commentId
+            id
         )
             .then(comment => {
                 if (!comment) {
@@ -74,29 +73,30 @@ commentsRouter
             .catch(next)
     })
     .patch(jsonParser, (req, res, next) => {
-        const { desc } = req.body
+        const { comment } = req.body
 
-        if (desc === null)
+        if (comment === null)
             return res.status(400).json({
                 error: {
-                    message: `missing ${desc} in request body`
+                    message: `missing ${comment} in request body`
                 }
             })
 
-        const updatedComment = { id, desc }
+        const commentToUpdate = { comment }
 
-        UsersService.updateUser(
+        commentsService.updateComment(
             req.app.get('db'),
-            req.params.userid,
-            userToUpdate
+            req.params.id,
+            commentToUpdate
         )
-            .then(updateUser => {
-                res.status(200).json(serializeComment(updatedComment))
+            .then(updatedComment => {
+                res.status(200).json(serializeComment(updatedComment[0]))
             })
             .catch(next)
     })
     .delete((req, res, next) => {
         const { id } = req.params
+
         commentsService.deleteComment(
             req.app.get('db'),
             id
