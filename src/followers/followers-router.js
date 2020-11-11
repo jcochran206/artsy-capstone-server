@@ -23,7 +23,7 @@ followersRouter
         const { id } = req.params;
         const knexInstance = req.app.get('db')
 
-        fpllowersService.getFollowerById(
+        followersService.getFollowerById(
             knexInstance,
             id
         )
@@ -40,9 +40,9 @@ followersRouter
             })
             .catch(next)
     })
-    .post(jsonParser, requireAuth, (req, res, next) => {
-        const id = req.user.id
-        const knexInstance = 
-    })
+    // .post(jsonParser, requireAuth, (req, res, next) => {
+        // const id = req.user.id
+        // const knexInstance = 
+    // })
 
 module.exports = followersRouter

@@ -9,6 +9,7 @@ const authRouter = require('./auth/auth-router')
 const postRouter = require('./posts/posts-router')
 const profileRouter = require('./profile/profile-router')
 const commentsRouter = require('./comments/comments-router')
+const followersRouter = require('./followers/followers-router')
 
 const app = express()
 
@@ -29,6 +30,7 @@ app.use('/api/auth', authRouter)
 app.use('/api/posts', postRouter)
 app.use('/api/profile', profileRouter)
 app.use('/api/comments', commentsRouter)
+app.use('/api/followers', followersRouter)
 
 app.use(function errorHandler(error, req, res, next) {
     let response
