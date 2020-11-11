@@ -7,7 +7,7 @@ TRUNCATE
     likes
     RESTART IDENTITY CASCADE;
 
-INSERT INTO users (username, pwd, email)
+INSERT INTO users (username, pwd, email, bio)
 VALUES
     ('joeb', 'joebpassword', 'joeb@email.com'),
     ('josht', 'joshtpassword', 'josht@email.com'),
@@ -28,7 +28,8 @@ VALUES
 INSERT INTO likes (post_id, user_id, isLiked)
 VALUES
     ('1', '1', 'true'),
-    ('2', '2', 'true');
+    ('2', '2', 'true'),
+    ('3', '2', 'false');
 
 INSERT INTO followers (followed_user_id, follower_user_id)
 VALUES

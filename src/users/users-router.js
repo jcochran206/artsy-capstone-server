@@ -97,19 +97,20 @@ usersRouter
         res.json(serializeUser(res.userid))
     })
     .put(jsonParser, (req, res, next) => {
-        const { userid, username, pwd, email } = req.body
-        const userToUpdate = { userid, username, pwd, email }
+        const userid = req.params.userid
+        const { username, pwd, email, bio} = req.body
+        const userToUpdate = { username, pwd, email, bio}
 
         const numberOfValues = Object.values(userToUpdate).filter(Boolean).length
         if (numberOfValues === 0)
             return res.status(400).json({
                 error: {
-                    message: `Request body does not contain userid, pwd, email`
+                    message: `Request body does not contain pwd, email, and bio`
                 }
             })
         usersService.updateUser(
             req.app.get('db'),
-            req.params.userid,
+            userid,
             userToUpdate
         )
             .then(updateUser => {

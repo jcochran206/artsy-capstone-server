@@ -8,7 +8,6 @@ const followersService = {
             'follower.id',
             )
     },
-
     // get by id
     getFollowerById(db, followerId) {
         return db
