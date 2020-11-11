@@ -8,7 +8,8 @@ const commentsService = {
             .from('comments')
             .select(
             'comments.id',
-            'comments.desc_comment'
+            'comments.comment',
+            'comments.user_id'
             )
     },
 
@@ -16,7 +17,7 @@ const commentsService = {
         return db
             .from('comments')
             .select('*')
-            .where('comments.id', id)
+            .where('comments.id', commentId)
             .first()
     },
 
@@ -27,23 +28,20 @@ const commentsService = {
             .then(([comment]) => comment)
     },
 
-    updateComment(db, userId, postId, commentId, newComment) {
+    updateComment(db, commentId, newComment) {
+        console.log('newComment', newComment)
         return db('comments')
             .where({
-                userid: userId,
-                postid: postId,
-                commentid: commentId,
+                id: commentId,
             })
-            .update(newComment, returning = true)
+            .update(newComment)
             .returning('*')
     },
 
-    deleteComment(db, userid) {
+    deleteComment(db, id) {
+        console.log(id)
         return db('comments')
-            .where({
-                userid: userid,
-                comment: id
-            })
+            .where({ id })
             .delete()
     },
 }
