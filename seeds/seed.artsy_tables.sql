@@ -11,6 +11,7 @@ INSERT INTO users (username, pwd, email)
 VALUES
     ('joeb', 'joebpassword', 'joeb@email.com'),
     ('josht', 'joshtpassword', 'josht@email.com'),
+    ('testy3', 'testypassword', 'testy@email.com'),
     ('satchmo', '$2a$12$HVLCtFkXdAURl8qLp7uam.3a9.k3lxadLV3PDGgGBLGGhpUstXxWq', 'satchmo@email.com');
 
 INSERT INTO posts (user_id, title, pic, desc_post)
@@ -27,6 +28,12 @@ INSERT INTO likes (post_id, user_id, isLiked)
 VALUES
     ('1', '1', 'true'),
     ('2', '2', 'true');
+
+INSERT INTO followers (followed_user_id, follower_user_id)
+VALUES
+    ( '1', '2'),
+    ( '1', '3'),
+    ('2', '1');
 
 COMMIT;
 

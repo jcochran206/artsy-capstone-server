@@ -3,7 +3,7 @@ hasUserWithUserName(db, username) {
         .where({ username })
         .first()
         .then(user => !!user)
-},
+}
 
 validatePass(pwd) {
     if (pwd.length < 8) {
@@ -18,8 +18,8 @@ validatePass(pwd) {
     if(!regexValidation.test(pwd)) {
         return 'password must contain at least one upper-case, lower-case, number, and special character'
     }
-},
+}
 
 hashPassword(pwd) {
     return bcrypt.hash(pwd, 12)
-},
+}
