@@ -6,14 +6,14 @@ const profileService = {
         return db
             .select('*')
             .from('users')
-            .join('posts', {'posts.id':'users.userid'})
+            .join('posts', { 'posts.id': 'users.id' })
     },
     getUserPostbyId(db) {
         return db
-        .select('*')
-        .from('users')
-        .join('posts', {'post.id': 'users.userid'})
+            .select('*')
+            .from('users')
+            .join('posts', { 'post.id': 'users.id' })
     }
-    
+
 }
 module.exports = profileService

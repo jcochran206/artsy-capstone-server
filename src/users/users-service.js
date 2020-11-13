@@ -46,7 +46,7 @@ const UsersService = {
             .select(
                 '*'
             )
-            .where('users.userid', userid)
+            .where('users.id', userid)
             .first()
     },
 
