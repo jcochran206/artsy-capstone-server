@@ -7,6 +7,7 @@ const { NODE_ENV } = require('./config')
 const usersRouter = require('./users/users-router')
 const authRouter = require('./auth/auth-router')
 const postRouter = require('./posts/posts-router')
+const profileRouter = require('./profile/profile-router')
 const commentsRouter = require('./comments/comments-router')
 const followersRouter = require('./followers/followers-router')
 
@@ -27,6 +28,7 @@ app.get('/', (req, res) => {
 app.use('/api/users', usersRouter)
 app.use('/api/auth', authRouter)
 app.use('/api/posts', postRouter)
+app.use('/api/profile', profileRouter)
 app.use('/api/comments', commentsRouter)
 app.use('/api/followers', followersRouter)
 

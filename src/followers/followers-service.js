@@ -7,7 +7,6 @@ const followersService = {
             .select('*')
             .where('followers.follower_id', follower_id)
     },
-
     // get by id
     getFollowerById(db, followerId) {
         return db
