@@ -49,14 +49,14 @@ const postService = {
         return db
             .from('posts')
             .join('followers', 'posts.user_id', 'followers.followed_user_id')
-            .join('users', 'users.userid', 'followers.followed_user_id')
+            .join('users', 'users.id', 'followers.followed_user_id')
             .where('followers.follower_user_id', user_id)
     },
 
     //get for profile page ()
     getProfile(db) {
         return db
-            .join('posts', {'posts.id':'users.userid'})
+            .join('posts', {'posts.id':'users.id'})
             .from('users')
             .select(
                 '*'
