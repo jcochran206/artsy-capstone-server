@@ -48,9 +48,9 @@ const postService = {
     getFeed(db, user_id) {
         return db
             .from('posts')
-            .join('followers', 'posts.user_id', 'followers.followed_id')
-            .join('users', 'users.id', 'followers.followed_id')
-            .where('followers.follower_id', user_id)
+            .join('followers', 'posts.user_id', 'followers.followed_user_id')
+            .join('users', 'users.userid', 'followers.followed_user_id')
+            .where('followers.follower_user_id', user_id)
     },
 
     //get for profile page ()
