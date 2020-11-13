@@ -1,12 +1,11 @@
 const followersService = {
 
     // get all
-    getFollowers(db) {
+    getFollowers(db, follower_id) {
         return db
             .from('followers')
-            .select(
-            'follower.id',
-            )
+            .select('*')
+            .where('followers.follower_id', follower_id)
     },
 
     // get by id
@@ -14,14 +13,14 @@ const followersService = {
         return db
             .from('followers')
             .select('*')
-            .where('follower.id', followerId)
+            .where('followers.id', followerId)
             .first()
     },
 
     // post
-    followUser(db, user_id, follower_id) {
+    followUser(db, followed_id, follower_id) {
         return db.insert({
-            user_id, follower_id
+            followed_id, follower_id
         })
         .into('followers')
         .returning('*')
@@ -29,9 +28,9 @@ const followersService = {
     },
 
     // delete
-    unfollowUser(db, user_id, follower_id) {
+    unfollowUser(db, followed_id, follower_id) {
         return db('followers')
-            .where({ user_id, follower_id })
+            .where({ followed_id, follower_id })
             .delete()
     }
 }

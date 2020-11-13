@@ -12,7 +12,7 @@ const serializePost = (post) => ({
     id: post.id,
     user_id: post.user_id,
     title: xss(post.title),
-    pic: post.pic,
+    pic: xss(post.pic),
     desc_post: xss(post.desc_post),
     date_created: post.date_created,
 })
@@ -49,6 +49,25 @@ postRouter
                     .status(201)
                     .location(path.posix.join(req.originalUrl, `/${post.id}`))
                     .json(serializePost(post))
+            })
+            .catch(next)
+    })
+
+postRouter
+    .route('/feed')
+    .get((req, res, next) => {
+        const user_id = req.user.id
+
+        postService.getPosts
+    })
+
+postRouter
+    .route('/profile')
+    .get((req, res, next) => {
+        const knexInstance = req.app.get('db')
+        postsService.getProfile(knexInstance)
+            .then(posts => {
+                res.json(posts.map(serializePost))
             })
             .catch(next)
     })

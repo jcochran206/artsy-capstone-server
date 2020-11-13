@@ -44,6 +44,25 @@ const postService = {
             .delete()
     },
 
+    //get for profile page (followed users)
+    getFeed(db, user_id) {
+        return db
+            .from('posts')
+            .join('followers', 'posts.user_id', 'followers.followed_id')
+            .join('users', 'users.id', 'followers.followed_id')
+            .where('followers.follower_id', user_id)
+    },
+
+    //get for profile page ()
+    getProfile(db) {
+        return db
+            .join('posts', {'posts.id':'users.userid'})
+            .from('users')
+            .select(
+                '*'
+            )
+    }
+
 
 }
 

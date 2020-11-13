@@ -24,10 +24,17 @@ VALUES
     ('1', '1', 'here goes comment for one'),
     ('2', '2', 'here goes comment for two');
 
-INSERT INTO likes (post_id, user_id, isLiked)
+INSERT INTO likes (post_id, user_id)
 VALUES
-    ('1', '1', 'true'),
-    ('2', '2', 'true');
+    ('1', '1'),
+    ('2', '2');
+
+INSERT INTO followers(followed_id, follower_id)
+VALUES
+    ('1', '2'),
+    ('1', '3'),
+    ('2', '1');
+
 
 COMMIT;
 
