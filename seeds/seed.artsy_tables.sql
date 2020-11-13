@@ -38,7 +38,3 @@ VALUES
 
 
 COMMIT;
-
--- NOTE TO SELF
--- bcrypt.hash('aaAA11!!', 12).then(hash => console.log({ hash }
--- hash: '$2a$12$HVLCtFkXdAURl8qLp7uam.3a9.k3lxadLV3PDGgGBLGGhpUstXxWq'

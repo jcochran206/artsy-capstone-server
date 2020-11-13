@@ -49,7 +49,6 @@ followersRouter
         const followed_id = req.params.id
 
         const knexInstance = req.app.get('db')
-        console.log('follower id:', follower_id,'|', 'followed id:', followed_id)
 
         if(!followed_id) {
             return res.status(400).json({
@@ -73,8 +72,6 @@ followersRouter
         const follower_id = req.user.id
         const followed_id = req.params.id
         const knexInstance = req.app.get('db')
-
-        console.log('follower id:', follower_id,'|', 'followed id:', followed_id)
 
         followersService.unfollowUser(
             knexInstance,

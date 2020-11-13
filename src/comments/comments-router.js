@@ -27,7 +27,7 @@ commentsRouter
     .post(jsonParser, requireAuth, (req, res, next) => {
         const { comment } = req.body
         const knexInstance = req.app.get('db')
-        console.log(req.user);
+        
         if (comment === null)
             return res.status(400).json({
                 error: {

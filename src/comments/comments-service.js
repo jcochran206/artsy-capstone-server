@@ -29,7 +29,6 @@ const commentsService = {
     },
 
     updateComment(db, commentId, newComment) {
-        console.log('newComment', newComment)
         return db('comments')
             .where({
                 id: commentId,
@@ -39,7 +38,6 @@ const commentsService = {
     },
 
     deleteComment(db, id) {
-        console.log(id)
         return db('comments')
             .where({ id })
             .delete()
