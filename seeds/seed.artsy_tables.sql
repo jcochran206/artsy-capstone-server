@@ -9,10 +9,10 @@ TRUNCATE
 
 INSERT INTO users (username, pwd, email, bio)
 VALUES
-    ('joeb', 'joebpassword', 'joeb@email.com'),
-    ('josht', 'joshtpassword', 'josht@email.com'),
-    ('testy3', 'testypassword', 'testy@email.com'),
-    ('satchmo', '$2a$12$HVLCtFkXdAURl8qLp7uam.3a9.k3lxadLV3PDGgGBLGGhpUstXxWq', 'satchmo@email.com');
+    ('joeb', 'joebpassword', 'joeb@email.com', null),
+    ('josht', 'joshtpassword', 'josht@email.com', null),
+    ('testy3', 'testypassword', 'testy@email.com', null),
+    ('satchmo', '$2a$12$HVLCtFkXdAURl8qLp7uam.3a9.k3lxadLV3PDGgGBLGGhpUstXxWq', 'satchmo@email.com', 'still waiting for my 15 minutes of fame ;P');
 
 INSERT INTO posts (user_id, title, pic, desc_post)
 VALUES
@@ -30,7 +30,7 @@ VALUES
     ('1', '1'),
     ('2', '2');
 
-INSERT INTO followers(followed_id, follower_id)
+INSERT INTO followers(followed_user_id, follower_user_id)
 VALUES
     ('1', '2'),
     ('1', '3'),
