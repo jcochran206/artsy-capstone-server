@@ -38,7 +38,7 @@ postRouter
                 })
             }
         }
-        newPost.user_id = req.user.userid   // via requireAuth > AuthService
+        newPost.user_id = req.user.id   // via requireAuth > AuthService
 
         postService.insertPost(
             req.app.get('db'),
