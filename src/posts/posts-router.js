@@ -82,7 +82,7 @@ postRouter
     .route('/profile')
     .get((req, res, next) => {
         const knexInstance = req.app.get('db')
-        postsService.getProfile(knexInstance)
+        postService.getProfile(knexInstance)
             .then(posts => {
                 res.json(posts.map(serializePost))
             })
@@ -106,20 +106,20 @@ postRouter
             .catch(next)
     })
     //joined get 
-    .get((req, res, next) => {
-        const { id } = req.params;
-        postService.getPostsByUserId(req.app.get('db'), id)
-            .then(post => {
-                if (!post) {
-                    return res
-                        .status(404)
-                        .send({ error: { message: 'user and post id does not match' } })
-                }
-                res.json(serializePost(post))
-                next()
-            })
-            .catch(next)
-    })
+    // .get((req, res, next) => {
+    //     const { id } = req.params;
+    //     postService.getPostsByUserId(req.app.get('db'), id)
+    //         .then(post => {
+    //             if (!post) {
+    //                 return res
+    //                     .status(404)
+    //                     .send({ error: { message: 'user and post id does not match' } })
+    //             }
+    //             res.json(serializePost(post))
+    //             next()
+    //         })
+    //         .catch(next)
+    // })
     //update
     .put(jsonParser, (req, res, next) => {
         const { title, desc_post } = req.body;
