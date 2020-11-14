@@ -20,7 +20,7 @@ VALUES
     ('2', 'Ocean View', 'https://res.cloudinary.com/thinkful/image/upload/v1604877945/imagepool/pmia5osmnz9or0f2jpph.jpg', 'a homage to Diebenkorn'),
     ('3', 'Signal vs Noise', 'https://res.cloudinary.com/thinkful/image/upload/v1604876790/imagepool/ngznhebncn5ztibempwg.jpg', 'while gazing at a Cy Twombly');
 
-INSERT INTO comments (post_id, user_id, comment)
+INSERT INTO comments (post_id, user_id, desc_comment)
 VALUES
     ('1', '1', 'here goes comment for one'),
     ('2', '2', 'here goes comment for two');
