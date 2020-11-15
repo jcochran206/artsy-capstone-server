@@ -49,7 +49,6 @@ const UsersService = {
             .where('users.id', userid)
             .first()
     },
-
     //insert user
     insertUser(db, newUser) {
         return db.insert(newUser)
@@ -61,7 +60,7 @@ const UsersService = {
     updateUser(db, userid, newUser) {
         return db('users')
             .where({
-                userid: userid
+                id: userid
             })
             .update(newUser, returning = true)
             .returning('*')
