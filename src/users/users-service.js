@@ -13,6 +13,18 @@ const UsersService = {
             .then(user => !!user)
     },
 
+    hasUserWithUsernameThatAintMine(db, id, username) {
+        return db('users')
+            .where({ username })
+            .first()
+            .returning('*')
+            .then(user => {
+                if (Number(user.id) !== Number(id)) {
+                    return !!user
+                }
+            })
+    },
+
     validatePass(pwd) {
         if (pwd.length < 8) {
             return 'Password must be longer than 8 characters'

@@ -105,24 +105,44 @@ usersRouter
     .put(jsonParser, (req, res, next) => {
         const userid = req.params.userid
         const { username, pwd, email, bio} = req.body
+
+        const emailErr = usersService.validateEmail(email)
+
+        if (emailErr) {
+            return res.status(400).json({ error: emailErr })
+        }
+
         const userToUpdate = { username, pwd, email, bio}
 
         const numberOfValues = Object.values(userToUpdate).filter(Boolean).length
-        if (numberOfValues === 0)
+        if (numberOfValues === 0) {
             return res.status(400).json({
                 error: {
                     message: `Request body does not contain pwd, email, and bio`
                 }
             })
-        usersService.updateUser(
+        }
+
+        usersService.hasUserWithUsernameThatAintMine(
             req.app.get('db'),
             userid,
-            userToUpdate
+            username,
         )
-            .then(updateUser => {
-                res.status(200).json(serializeUser(updateUser[0]))
+            .then(hasUser => {
+                if (hasUser) {
+                    return res.status(400).json({ error: `Username already exists` })
+                }
+
+                return usersService.updateUser (
+                    req.app.get('db'),
+                    userid,
+                    userToUpdate
+                )
+                    .then(updateUser => {
+                        res.status(200).json(serializeUser(updateUser[0]))
+                    })
+                    .catch(next)
             })
-            .catch(next)
     })
 
 module.exports = usersRouter
