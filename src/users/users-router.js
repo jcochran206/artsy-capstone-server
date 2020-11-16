@@ -48,6 +48,12 @@ usersRouter
             return res.status(400).json({ error: passErr })
         }
 
+        const emailErr = usersService.validateEmail(email)
+
+        if (emailErr) {
+            return res.status(400).json({ error: emailErr })
+        }
+
         usersService.hasUserWithUserName(
             req.app.get('db'),
             username

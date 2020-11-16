@@ -1,8 +1,8 @@
 const bcrypt = require('bcryptjs')
 const xss = require('xss')
 
-const regexValidation = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&])[\S]+/
-
+const regexPasswordValidation = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&])[\S]+/
+const regexEmailValidation = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/
 const UsersService = {
 
     //validate functions
@@ -23,8 +23,14 @@ const UsersService = {
         if (pwd.startsWith(' ') || pwd.endsWith(' ')) {
             return 'Password may not start or end with spaces'
         }
-        if (!regexValidation.test(pwd)) {
+        if (!regexPasswordValidation.test(pwd)) {
             return 'password must contain at least one upper-case, lower-case, number, and special character'
+        }
+    },
+
+    validateEmail(email) {
+        if (!regexEmailValidation.test(email)) {
+            return 'email address is not valid'
         }
     },
 
