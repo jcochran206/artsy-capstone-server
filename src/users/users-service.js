@@ -19,8 +19,10 @@ const UsersService = {
             .first()
             .returning('*')
             .then(user => {
-                if (Number(user.id) !== Number(id)) {
-                    return !!user
+                if (user) {
+                    if (Number(user.id) !== Number(id)) {
+                        return !!user
+                    }
                 }
             })
     },
