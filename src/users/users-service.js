@@ -90,6 +90,14 @@ const UsersService = {
                 userid: userid
             })
             .delete()
+    },
+    //get posts by user
+    getUsersPosts(db, userid){
+        return db
+        .from('posts')
+        .select('*')
+        .join('users', {'users.id': 'posts.user_id'})
+        .where('posts.user_id', userid)
     }
 }
 
