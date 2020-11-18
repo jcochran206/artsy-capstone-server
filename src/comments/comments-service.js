@@ -6,11 +6,7 @@ const commentsService = {
     getComments(db) {
         return db
             .from('comments')
-            .select(
-            'comments.id',
-            'comments.comment',
-            'comments.user_id'
-            )
+            .select('*')
     },
 
     getCommentById(db, commentId) {
@@ -42,6 +38,13 @@ const commentsService = {
             .where({ id })
             .delete()
     },
+
+    getAllCommentsInPost(db, id){
+        return db
+            .from('comments')
+            .select('*')
+            .where('comments.post_id', id)
+    }
 }
 
 module.exports = commentsService;
