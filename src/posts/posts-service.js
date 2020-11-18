@@ -14,7 +14,8 @@ const postService = {
             .from('posts')
             .select('*')
             .where({ id: id })
-            .first()
+            .orderBy('date_created', 'desc')
+            
     },
     //insert post
     insertPost(db, newPost) {
@@ -43,16 +44,16 @@ const postService = {
             })
             .delete()
     },
-
     //get for profile page (followed users)
     getFeed(db, user_id) {
         return db
-            .from('posts')
-            .join('followers', 'posts.user_id', 'followers.followed_user_id')
-            .join('users', 'users.id', 'followers.followed_user_id')
-            .where('followers.follower_user_id', user_id)
+            .from('followers')
+            .select('*')
+            .join('posts', {'posts.user_id': 'followers.follower_user_id'})
+            .join('users', {'users.id': 'followers.follower_user_id'})
+            .where('followers.followed_user_id', user_id)
+            .orderBy('posts.date_created', 'asc')
     },
-
     //get for profile page ()
     getProfile(db) {
         return db
