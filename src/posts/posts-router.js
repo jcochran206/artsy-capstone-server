@@ -98,7 +98,6 @@ postRouter
             .catch(next)
     })
     
-
     //update
     .put(jsonParser, (req, res, next) => {
         const { title, desc_post } = req.body;
