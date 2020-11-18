@@ -14,7 +14,8 @@ const postService = {
             .from('posts')
             .select('*')
             .where({ id: id })
-            .first()
+            .orderBy('date_created', 'desc')
+            
     },
     //insert post
     insertPost(db, newPost) {

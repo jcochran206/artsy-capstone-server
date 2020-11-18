@@ -22,6 +22,7 @@ const followersService = {
             .select('followed_user_id', 'username')
             .join('users', {'users.id': 'followers.followed_user_id'})
             .where('followers.follower_user_id', userid)
+            .orderBy('users.username', 'asc')
     },
     // post
     followUser(db, followed_user_id, follower_user_id) {

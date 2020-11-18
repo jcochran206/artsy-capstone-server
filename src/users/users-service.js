@@ -58,6 +58,7 @@ const UsersService = {
             .select(
                 '*'
             )
+            .orderBy('username', 'asc')
     },
     //get user by Id
     getUsersById(db, userid) {
@@ -100,6 +101,7 @@ const UsersService = {
         .select('*')
         .join('users', {'users.id': 'posts.user_id'})
         .where('posts.user_id', userid)
+        .orderBy('date_created', 'asc')
     }
 }
 
