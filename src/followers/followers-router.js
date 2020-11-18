@@ -23,27 +23,6 @@ followersRouter
 
 followersRouter
     .route('/:id')
-    .get((req, res, next) => {
-        const { id } = req.params;
-        const knexInstance = req.app.get('db')
-
-        followersService.getFollowerById(
-            knexInstance,
-            id
-        )
-            .then(follower => {
-                if (!follower) {
-                    return res.status(404).json({
-                        error: {
-                            message: `follower does not exist`
-                        }
-                    })
-                }
-                res.status(200).json(follower)
-                next()
-            })
-            .catch(next)
-    })
     .post(jsonParser, requireAuth, (req, res, next) => {
         const follower_id = req.user.id
         const followed_id = req.params.id
@@ -84,4 +63,48 @@ followersRouter
         .catch(next)
     })
 
+followersRouter
+    .route('/followers/:id')
+    .get((req, res, next) => {
+        const { id } = req.params
+        console.log(id)
+        const db = req.app.get('db')
+
+        followersService.getFollowersById(db, id)
+        .then(followers => {
+            if(!followers){
+                return res.status(404).json({
+                    error: {
+                        message: `user has no followers`
+                    }
+                })            }
+            res.json(followers)
+            next()
+        })
+        .catch(next)
+    })
+
+followersRouter
+    .route('/following/:id')
+    .get((req, res, next) => {
+        const { id } = req.params;
+        const knexInstance = req.app.get('db')
+
+        followersService.getFollowingById(
+            knexInstance,
+            id
+        )
+            .then(following => {
+                if (!following) {
+                    return res.status(404).json({
+                        error: {
+                            message: `user is not following anyone`
+                        }
+                    })
+                }
+                res.status(200).json(following)
+                next()
+            })
+            .catch(next)
+    })
 module.exports = followersRouter
