@@ -25,18 +25,17 @@ commentsRouter
             .catch(next)
     })
     .post(jsonParser, requireAuth, (req, res, next) => {
-        const { comment, post_id } = req.body
+        const { desc_comment, post_id } = req.body
         const knexInstance = req.app.get('db')
         
-        if (comment === null)
+        if (desc_comment === null)
             return res.status(400).json({
                 error: {
                     message: `Missing description in request body.`
                 }
             })
-        
-        console.log(req.body)
-        const newComment = { desc_comment: comment, user_id: req.user.id, post_id: post_id }
+        const newComment = { desc_comment: desc_comment, user_id: req.user.id, post_id: post_id }
+
         commentsService.insertComment(
             knexInstance,
             newComment
