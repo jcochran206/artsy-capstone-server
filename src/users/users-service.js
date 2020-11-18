@@ -101,7 +101,7 @@ const UsersService = {
         .select('*')
         .join('users', {'users.id': 'posts.user_id'})
         .where('posts.user_id', userid)
-        .orderBy('date_created', 'asc')
+        .orderBy('posts.date_created', 'asc')
     }
 }
 
