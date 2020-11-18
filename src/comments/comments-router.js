@@ -107,4 +107,23 @@ commentsRouter
             .catch(next)
     })
 
+
+commentsRouter
+    .route('/post/:id')
+    .get((req, res, next) => {
+        const { id } = req.params
+        commentsService.getAllCommentsInPost(req.app.get('db'), id)
+        .then(comments => {
+            if(!comments){
+                return res.status(404).json({
+                    error: {
+                        message: `comment does not exist`
+                    }
+                })
+            }
+            res.status(200).json(comments)
+            next()
+        })
+        .catch(next)
+    })
 module.exports = commentsRouter
