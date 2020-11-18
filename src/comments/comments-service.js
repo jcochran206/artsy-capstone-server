@@ -42,7 +42,8 @@ const commentsService = {
     getAllCommentsInPost(db, id){
         return db
             .from('comments')
-            .select('*')
+            .select('comments.desc_comment', 'user_id', 'username')
+            .join('users', {'users.id': 'comments.user_id'})
             .where('comments.post_id', id)
     }
 }

@@ -164,7 +164,6 @@ usersRouter
         .catch(next)
     })
     .get((req, res, next) => {
-        console.log(res.userid)
         usersService.getUsersPosts(req.app.get('db'), res.userid.id)
         .then(posts => {
             if(!posts){
