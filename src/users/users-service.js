@@ -98,7 +98,7 @@ const UsersService = {
     getUsersPosts(db, userid){
         return db
         .from('posts')
-        .select('*')
+        .select('posts.id', 'posts.user_id', 'posts.title', 'posts.pic', 'posts.desc_post', 'posts.date_created', 'users.username')
         .join('users', {'users.id': 'posts.user_id'})
         .where('posts.user_id', userid)
         .orderBy('posts.date_created', 'asc')
