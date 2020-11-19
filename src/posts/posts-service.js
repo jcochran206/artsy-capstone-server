@@ -52,7 +52,7 @@ const postService = {
             .join('posts', {'posts.user_id': 'followers.follower_user_id'})
             .join('users', {'users.id': 'followers.follower_user_id'})
             .where('followers.followed_user_id', user_id)
-            .orderBy('posts.date_created', 'asc')
+            .orderBy('posts.date_created', 'desc')
     },
     //get for profile page ()
     getProfile(db) {
