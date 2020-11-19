@@ -6,11 +6,14 @@ const { requireAuth }= require('../middleware/jwt-auth')
 const path = require('path')
 const commentsService = require('./comments-service')
 const UsersService = require('../users/users-service')
+const { getCommentById } = require('./comments-service')
 
 const serializeComment = (comment) => ({
     id: comment.id,
-    comment: xss(comment.comment),
+    desc_comment: xss(comment.desc_comment),
     user_id: comment.user_id,
+    post_id: comment.post_id,
+    username: comment.username
 })
 
 
@@ -41,10 +44,14 @@ commentsRouter
             newComment
         )
             .then(comment => {
-                res
-                    .status(201)
-                    .location(path.posix.join(req.originalUrl, `/${comment.id}`))
-                    .json(serializeComment(comment))
+                commentsService.getCommentById(knexInstance, comment.id)
+                .then(commentInfo => {
+                    res
+                        .status(201)
+                        .location(path.posix.join(req.originalUrl, `/${comment.id}`))
+                        .json(commentInfo)
+
+                })
             })
             .catch(next)
     })

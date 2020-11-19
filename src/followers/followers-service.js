@@ -2,7 +2,6 @@ const followersService = {
 
     // get all
     getFollowers(db, follower_id) {
-        console.log(follower_id)
         return db
             .from('followers')
             .select('*')
