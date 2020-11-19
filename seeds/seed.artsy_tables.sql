@@ -29,8 +29,8 @@ VALUES
 
 INSERT INTO comments (post_id, user_id, desc_comment)
 VALUES
-    ('7', '3', 'Awwwwww'),
-    ('6', '4', 'Makes my head hurt just looking at it ;P');
+    ('9', '3', 'Awwwwww'),
+    ('1', '4', 'Lovely shot, but my head hurts just looking at it (haha)');
 
 INSERT INTO likes (post_id, user_id)
 VALUES
@@ -41,7 +41,10 @@ INSERT INTO followers(followed_user_id, follower_user_id)
 VALUES
     ('1', '2'),
     ('1', '3'),
-    ('2', '1');
-
+    ('2', '1'),
+    ('5', '1'),
+    ('5', '2'),
+    ('5', '3'),
+    ('5', '4');
 
 COMMIT;
