@@ -48,7 +48,15 @@ const postService = {
     getFeed(db, user_id) {
         return db
             .from('followers')
-            .select('*')
+            .select('posts.id', 
+                'posts.user_id', 
+                'posts.title', 
+                'posts.pic', 
+                'posts.desc_post', 
+                'posts.date_created', 
+                'followers.follower_user_id',
+                'users.username'
+                )
             .join('posts', {'posts.user_id': 'followers.follower_user_id'})
             .join('users', {'users.id': 'followers.follower_user_id'})
             .where('followers.followed_user_id', user_id)
