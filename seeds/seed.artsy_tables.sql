@@ -17,15 +17,15 @@ VALUES
 
 INSERT INTO posts (user_id, title, pic, desc_post)
 VALUES
-    ('1', 'Warholia', 'https://res.cloudinary.com/thinkful/image/upload/v1605819667/imagepool/bxodagysi5qhqdhdbfex.jpg', 'He has certainly had more than his alotted 15 minutes of fame'),
+    ('3', 'Head bang', 'https://res.cloudinary.com/thinkful/image/upload/v1605819628/imagepool/x0aqevreipsjg811umks.jpg', 'oh no'),
+    ('4', 'Signal vs Noise', 'https://res.cloudinary.com/thinkful/image/upload/v1605819515/imagepool/mr613p0lhru07b66xruh.jpg', 'while gazing at a Cy Twombly'),
     ('1', 'Homage to Diebenkorn', 'https://res.cloudinary.com/thinkful/image/upload/v1604880998/imagepool/j80qluchryfhz5gqsvee.jpg', 'the view outside my window... sorta'),
     ('2', 'Ocean Park', 'https://res.cloudinary.com/thinkful/image/upload/v1605819644/imagepool/rh4xtetgt7jzzgdkeafo.jpg', 'entering my aquamarine period'),
-    ('3', 'Purple Haze', 'https://res.cloudinary.com/thinkful/image/upload/v1605819604/imagepool/z33rmk9vzieztrsqh7lk.jpg', 'my friend Laura striking a pose'),
     ('3', 'Namaste', 'https://res.cloudinary.com/thinkful/image/upload/v1605819617/imagepool/lpu33rh5nx0fm2ufrlue.jpg', 'outside the mosh pit'),
-    ('3', 'Head bang', 'https://res.cloudinary.com/thinkful/image/upload/v1605819628/imagepool/x0aqevreipsjg811umks.jpg', 'oh no'),
-    ('4', 'Flat Eric', 'https://res.cloudinary.com/thinkful/image/upload/v1605819573/imagepool/ezxrz9w9zrkhcayik5yt.jpg', 'my spirit animal'),
     ('4', 'Frank~lin', 'https://res.cloudinary.com/thinkful/image/upload/v1605819560/imagepool/fvr5uk06bdxtnvk6veir.jpg', 'as a broken record ai bot?'),
-    ('4', 'Signal vs Noise', 'https://res.cloudinary.com/thinkful/image/upload/v1605819515/imagepool/mr613p0lhru07b66xruh.jpg', 'while gazing at a Cy Twombly');
+    ('3', 'Purple Haze', 'https://res.cloudinary.com/thinkful/image/upload/v1605819604/imagepool/z33rmk9vzieztrsqh7lk.jpg', 'my friend Laura striking a pose'),
+    ('1', 'Warholia', 'https://res.cloudinary.com/thinkful/image/upload/v1605819667/imagepool/bxodagysi5qhqdhdbfex.jpg', 'He has certainly had more than his alotted 15 minutes of fame'),
+    ('4', 'Flat Eric', 'https://res.cloudinary.com/thinkful/image/upload/v1605819573/imagepool/ezxrz9w9zrkhcayik5yt.jpg', 'my spirit animal');
 
 INSERT INTO comments (post_id, user_id, desc_comment)
 VALUES
