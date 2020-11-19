@@ -95,13 +95,13 @@ const UsersService = {
             .delete()
     },
     //get posts by user
-    getUsersPosts(db, userid){
+    getUsersPosts(db, userid) {
         return db
-        .from('posts')
-        .select('posts.id', 'posts.user_id', 'posts.title', 'posts.pic', 'posts.desc_post', 'posts.date_created', 'users.username')
-        .join('users', {'users.id': 'posts.user_id'})
-        .where('posts.user_id', userid)
-        .orderBy('posts.date_created', 'asc')
+            .from('posts')
+            .select('posts.id', 'posts.user_id', 'posts.title', 'posts.pic', 'posts.desc_post', 'posts.date_created', 'users.username')
+            .join('users', { 'users.id': 'posts.user_id' })
+            .where('posts.user_id', userid)
+            .orderBy('posts.date_created', 'desc')
     }
 }
 
