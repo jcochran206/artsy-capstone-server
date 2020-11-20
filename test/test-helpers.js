@@ -119,7 +119,7 @@ function makeCommentsArray(posts, users) {
         {
             id: 4,
             post_id: posts[0].id || 1,
-            user_id: users[4].id,
+            user_id: users[3].id,
             desc_comment: 'test comment 4'
         },
     ];
@@ -170,7 +170,7 @@ function makeMaliciousPost(user) {
 
 function makeFixtures() {
     const testUsers = makeUsersArray()
-    const testPosts = makePostsArray()
+    const testPosts = makePostsArray(testUsers)
     const testComments = makeCommentsArray(testUsers, testPosts)
     const testFollowers = makeFollowersArray(testUsers)
     return { testUsers, testPosts, testComments, testFollowers }
@@ -248,7 +248,7 @@ function seedPostsTables(db, users, posts) {
         await trx.into('posts').insert(posts)
         await trx.raw(
             `SELECT setval('posts_id_seq', ?)`,
-            [decks[decks.length - 1].id],
+            [posts[posts.length - 1].id],
         )
     })
 }
