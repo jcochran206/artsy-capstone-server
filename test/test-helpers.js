@@ -6,33 +6,33 @@ function makeUsersArray() {
         {
             id: 1,
             username: 'test-user-1',
-            pwd: 'testpass1',
-            email: 'john@somemail.com',
-            bio: 'test bio test bio test bio',
+            pwd: 'Aa11bB!!',
+            email: 'test1@email.com',
+            bio: 'testbio1',
             date_created: '2029-01-22T16:28:32.615Z',
         },
         {
             id: 2,
             username: 'test-user-2',
-            pwd: 'testpass2',
-            email: 'jim@somemail.com',
-            bio: 'test bio test bio test bio',
+            pwd: 'Aa11bB!!',
+            email: 'test2@email.com',
+            bio: 'testbio2',
             date_created: '2029-01-22T16:28:32.615Z',
         },
         {
             id: 3,
             username: 'test-user-3',
-            pwd: 'testpass3',
-            email: 'ron@somemail.com',
-            bio: 'test bio test bio test bio',
+            pwd: 'Aa11bB!!',
+            email: 'test3@email.com',
+            bio: 'testbio3',
             date_created: '2029-01-22T16:28:32.615Z',
         },
         {
             id: 4,
             username: 'test-user-4',
-            pwd: 'testpass4',
-            email: 'gus@somemail.com',
-            bio: 'test bio test bio test bio',
+            pwd: 'Aa11bB!!',
+            email: 'test4@email.com',
+            bio: 'testbio4',
             date_created: '2029-01-22T16:28:32.615Z',
         },
     ]
@@ -43,113 +43,124 @@ function makePostsArray(users) {
         {
             id: 1,
             user_id: users[0].id,
-            title: 'first test post!',
-            pic: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus consequuntur deserunt commodi, nobis qui inventore corrupti iusto aliquid debitis unde non.Adipisci, pariatur.Molestiae, libero esse hic adipisci autem neque ?',
-            desc_post: 'test post description 1',
-            date_created: '2029-01-22T16:28:32.615Z'
+            title: 'First test post!',
+            pic: '',
+            desc_post: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus consequuntur deserunt commodi, nobis qui inventore corrupti iusto aliquid debitis unde non.Adipisci, pariatur.Molestiae, libero esse hic adipisci autem neque ?',
+            date_created: '2029-01-22T16:28:32.615Z',
         },
         {
             id: 2,
-            user_id: users[0].id,
-            title: 'second test post!',
-            pic: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus consequuntur deserunt commodi, nobis qui inventore corrupti iusto aliquid debitis unde non.Adipisci, pariatur.Molestiae, libero esse hic adipisci autem neque ?',
-            desc_post: 'test post description 2',
-            date_created: '2029-01-22T16:28:32.615Z'
+            user_id: users[1].id,
+            title: 'Second test post!',
+            pic: '',
+            desc_post: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus consequuntur deserunt commodi, nobis qui inventore corrupti iusto aliquid debitis unde non.Adipisci, pariatur.Molestiae, libero esse hic adipisci autem neque ?',
+            date_created: '2029-01-22T16:28:32.615Z',
         },
         {
             id: 3,
-            user_id: users[0].id,
-            title: 'third test post!',
-            pic: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus consequuntur deserunt commodi, nobis qui inventore corrupti iusto aliquid debitis unde non.Adipisci, pariatur.Molestiae, libero esse hic adipisci autem neque ?',
-            desc_post: 'test post description 3',
-            date_created: '2029-01-22T16:28:32.615Z'
+            user_id: users[2].id,
+            title: 'Third test post!',
+            pic: '',
+            desc_post: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus consequuntur deserunt commodi, nobis qui inventore corrupti iusto aliquid debitis unde non.Adipisci, pariatur.Molestiae, libero esse hic adipisci autem neque ?',
+            date_created: '2029-01-22T16:28:32.615Z',
         },
         {
             id: 4,
-            user_id: users[0].id,
-            title: 'fourth test post!',
-            pic: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus consequuntur deserunt commodi, nobis qui inventore corrupti iusto aliquid debitis unde non.Adipisci, pariatur.Molestiae, libero esse hic adipisci autem neque ?',
-            desc_post: 'test post description 4',
-            date_created: '2029-01-22T16:28:32.615Z'
+            user_id: users[3].id,
+            title: 'Fourth test post!',
+            pic: '',
+            desc_post: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus consequuntur deserunt commodi, nobis qui inventore corrupti iusto aliquid debitis unde non.Adipisci, pariatur.Molestiae, libero esse hic adipisci autem neque ?',
+            date_created: '2029-01-22T16:28:32.615Z',
         },
     ]
 }
 
-function makeFollowersArray() {
+function makeFollowersArray(users) {
     return [
         {
-            followed_user_id: 1,
-            follower_user_id: 4,
+            followed_user_id: users[0].id,
+            follower_user_id: users[1].id
         },
         {
-            followed_user_id: 2,
-            follower_user_id: 3,
+            followed_user_id: users[1].id,
+            follower_user_id: users[2].id
         },
         {
-            followed_user_id: 3,
-            follower_user_id: 2,
+            followed_user_id: users[2].id,
+            follower_user_id: users[3].id
         },
         {
-            followed_user_id: 4,
-            follower_user_id: 1,
-        },
+            followed_user_id: users[3].id,
+            follower_user_id: users[1].id
+        }
     ]
 }
 
-// function makeDecksCardsArray(decks, cards) {
-//     return [
-//         {
-//             id: 1,
-//             deck_id: decks[0].id || 1,
-//             card_id: cards[0].id,
-//         },
-//         {
-//             id: 2,
-//             deck_id: decks[0].id || 1,
-//             card_id: cards[1].id,
-//         },
-//         {
-//             id: 3,
-//             deck_id: decks[0].id || 1,
-//             card_id: cards[2].id,
-//         },
-//         {
-//             id: 4,
-//             deck_id: decks[0].id || 1,
-//             card_id: cards[3].id,
-//         }
-//     ];
-// }
+function makeCommentsArray(posts, users) {
+    return [
+        {
+            id: 1,
+            post_id: posts[0].id,
+            user_id: users[0].id,
+            desc_comment: 'test comment 1'
+        },
+        {
+            id: 2,
+            post_id: posts[0].id || 1,
+            user_id: users[1].id,
+            desc_comment: 'test comment 2'
+        },
+        {
+            id: 3,
+            post_id: posts[0].id || 1,
+            user_id: users[2].id,
+            desc_comment: 'test comment 3'
+        },
+        {
+            id: 4,
+            post_id: posts[0].id || 1,
+            user_id: users[4].id,
+            desc_comment: 'test comment 4'
+        },
+    ];
+}
 
-function makeExpectedPost(users, post) {
+function makeExpectedPost(users, posts, comments = []) {
     const user = users
-        .find(user => user.id === post.user_id)
+        .find(user => user.id === posts.user_id)
+
+    const number_of_comments = comments
+        .filter(comment => comment.post_id === post.id)
+        .length
 
     return {
-        id: posts.id,
-        user_id: posts.user_id,
-        title: posts.title,
-        pic: posts.pic,
-        desc_post: posts.desc_post,
+        id: article.id,
+        user_id: article.user_id,
+        title: article.title,
+        pic: article.pic,
+        desc_post: article.desc_post,
+        date_created: article.date_created,
+        number_of_comments,
         user: {
             id: user.id,
-            username: user.username,
+            user_name: user.username,
         },
     }
 }
 
 function makeMaliciousPost(user) {
-    const maliciousDeck = {
+    const maliciousPost = {
         id: 911,
         user_id: user.id,
         title: 'Bad name <script>alert("xss");</script>',
         pic: `Bad image <img src="https://url.to.file.which/does-not.exist" onerror="alert(document.cookie);">. But not <strong>all</strong> bad.`,
-        desc_post: 'Bad post <script>alert("xss");</script>',
+        desc_post: 'Bad name <script>alert("xss");</script>',
+        date_created: '2029-01-22T16:28:32.615Z'
     }
     const expectedPost = {
-        ...makeExpectedDeck([user], maliciousDeck),
-        name: 'Bad name &lt;script&gt;alert(\"xss\");&lt;/script&gt;',
-        text: `Bad image <img src="https://url.to.file.which/does-not.exist">. But not <strong>all</strong> bad.`,
+        ...makeExpectedPost([user], maliciousPost),
+        title: 'Bad name &lt;script&gt;alert(\"xss\");&lt;/script&gt;',
+        desc_post: `Bad image <img src="https://url.to.file.which/does-not.exist">. But not <strong>all</strong> bad.`,
     }
     return {
         maliciousDeck,
@@ -159,9 +170,10 @@ function makeMaliciousPost(user) {
 
 function makeFixtures() {
     const testUsers = makeUsersArray()
-    const testPosts = makeCardsArray()
-    const testFollowers = makeDecksArray(testUsers)
-    return { testUsers, testPosts, testFollowers }
+    const testPosts = makePostsArray()
+    const testComments = makeCommentsArray(testUsers, testPosts)
+    const testFollowers = makeFollowersArray(testUsers)
+    return { testUsers, testPosts, testComments, testFollowers }
 }
 
 
@@ -171,6 +183,7 @@ function cleanTables(db) {
             `TRUNCATE
         users,
         posts,
+        comments,
         followers
         RESTART IDENTITY CASCADE
       `
@@ -179,8 +192,10 @@ function cleanTables(db) {
                 Promise.all([
                     trx.raw(`ALTER SEQUENCE users_id_seq minvalue 0 START WITH 1`),
                     trx.raw(`ALTER SEQUENCE posts_id_seq minvalue 0 START WITH 1`),
+                    trx.raw(`ALTER SEQUENCE comments_seq minvalue 0 START WITH 1`),
                     trx.raw(`SELECT setval('users_id_seq', 0)`),
                     trx.raw(`SELECT setval('posts_id_seq', 0)`),
+                    trx.raw(`SELECT setval('comments_id_seq', 0)`),
                 ])
             )
     )
@@ -189,7 +204,7 @@ function cleanTables(db) {
 function seedUsers(db, users) {
     const preppedUsers = users.map(user => ({
         ...user,
-        password: bcrypt.hashSync(user.password, 1)
+        pwd: bcrypt.hashSync(user.pwd, 1)
     }))
     return db.into('users').insert(preppedUsers)
         .then(() =>
@@ -214,21 +229,25 @@ function seedPosts(db, posts) {
         )
 }
 
-// function seedDecksCardsTables(db, users, decks, cards = [], decksCards = []) {
-//     return db.transaction(async trx => {
-//         await seedUsers(trx, users)
-//         await seedCards(trx, cards)
-//         await trx.into('mtg_decks').insert(decks)
-//         await trx.into('mtg_decks_cards').insert(decksCards)
-//     })
-// }
+function seedComments(db, comments) {
+    const preppedComments = comments.map(comment => ({
+        ...comment
+    }))
+    return db.into('comments').insert(preppedComments)
+        .then(() =>
+            db.raw(
+                `SELECT setval('comments_id_seq', ?)`,
+                [comments[comments.length - 1].id],
+            )
+        )
+}
 
-function seedDecksTables(db, users, decks) {
+function seedPostsTables(db, users, posts) {
     return db.transaction(async trx => {
         await seedUsers(trx, users)
-        await trx.into('mtg_decks').insert(decks)
+        await trx.into('posts').insert(posts)
         await trx.raw(
-            `SELECT setval('mtg_decks_id_seq', ?)`,
+            `SELECT setval('posts_id_seq', ?)`,
             [decks[decks.length - 1].id],
         )
     })
@@ -242,45 +261,21 @@ function makeAuthHeader(user, secret = process.env.JWT_SECRET) {
     return `Bearer ${token}`
 }
 
-function makeExpectedDeck(users, deck) {
-    const user = users
-        .find(user => user.id === deck.user_id)
-
-    return {
-        id: article.id,
-        name: article.title,
-        text: article.content,
-        user: {
-            id: user.id,
-            user_name: user.user_name,
-            full_name: user.full_name,
-            nickname: user.nickname,
-        },
-    }
-}
-
-function seedMaliciousDeck(db, user, deck) {
-    return seedUsers(db, [user])
-        .then(() =>
-            db
-                .into('mtg_decks')
-                .insert([deck])
-        )
-}
-
 
 module.exports = {
     makeUsersArray,
-    makeDecksArray,
-    makeCardsArray,
-    makeDecksCardsArray,
-    makeDecksFixtures,
-    seedDecksCardsTables,
+    makePostsArray,
+    makeCommentsArray,
+    makeFollowersArray,
+    makeFixtures,
+    seedFollowersTables,
     cleanTables,
     seedUsers,
-    seedDecksTables,
-    seedMaliciousDeck,
+    seedPosts,
+    seedComments,
+    seedPostsTables,
+    seedMaliciousPost,
     makeAuthHeader,
-    makeExpectedDeck,
-    makeMaliciousDeck,
+    makeExpectedPost,
+    makeMaliciousPost,
 }
