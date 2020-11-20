@@ -12,7 +12,8 @@ const commentsService = {
     getCommentById(db, commentId) {
         return db
             .from('comments')
-            .select('*')
+            .select('comments.user_id', 'comments.desc_comment', 'users.username')
+            .join('users', {'users.id': 'comments.user_id'})
             .where('comments.id', commentId)
             .first()
     },

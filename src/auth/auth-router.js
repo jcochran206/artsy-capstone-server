@@ -14,13 +14,11 @@ authRouter.post("/login", jsonParser, (req, res, next) => {
             });
         }
     }
-    console.log('req.body: ', req.body)
     AuthService.getUserWithUserName(
         req.app.get("db"),
         loginUser.username
     )
         .then((dbUser) => {
-            console.log('dbUser: ', dbUser )
             if (!dbUser) {
                 return res.status(400).json({
                     error: "Incorrect username or password",
@@ -30,7 +28,6 @@ authRouter.post("/login", jsonParser, (req, res, next) => {
                 loginUser.pwd,
                 dbUser.pwd
             ).then(compareMatch => {
-                console.log('compareMatch: ', compareMatch)
                 if (!compareMatch) {
                     return res.status(400).json({
                         error: "Incorrect username or password",

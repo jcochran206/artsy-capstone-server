@@ -67,7 +67,6 @@ followersRouter
     .route('/followers/:id')
     .get((req, res, next) => {
         const { id } = req.params
-        console.log(id)
         const db = req.app.get('db')
 
         followersService.getFollowersById(db, id)
