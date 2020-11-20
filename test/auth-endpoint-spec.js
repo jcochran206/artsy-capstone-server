@@ -7,7 +7,7 @@ describe('Auth Endpoints', function () {
 
     let db
 
-    const { testUsers } = helpers.makeDecksFixtures()
+    const { testUsers } = helpers.makeFixtures()
     const testUser = testUsers[0]
 
     before('make knex instance', () => {

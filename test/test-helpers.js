@@ -248,7 +248,7 @@ function seedPostsTables(db, users, posts) {
         await trx.into('posts').insert(posts)
         await trx.raw(
             `SELECT setval('posts_id_seq', ?)`,
-            [decks[decks.length - 1].id],
+            [posts[posts.length - 1].id],
         )
     })
 }
