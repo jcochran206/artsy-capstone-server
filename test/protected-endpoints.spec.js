@@ -11,7 +11,7 @@ describe('Protected endpoints', function () {
         testUsers,
         testPosts,
         testFollowers,
-    } = helpers.makeDecksFixtures()
+    } = helpers.makeFixtures()
 
     before('make knex instance', () => {
         db = knex({

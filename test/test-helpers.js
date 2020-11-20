@@ -44,7 +44,7 @@ function makePostsArray(users) {
             id: 1,
             user_id: users[0].id,
             title: 'First test post!',
-            pic: '',
+            //pic: '',
             desc_post: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus consequuntur deserunt commodi, nobis qui inventore corrupti iusto aliquid debitis unde non.Adipisci, pariatur.Molestiae, libero esse hic adipisci autem neque ?',
             date_created: '2029-01-22T16:28:32.615Z',
         },
@@ -52,7 +52,7 @@ function makePostsArray(users) {
             id: 2,
             user_id: users[1].id,
             title: 'Second test post!',
-            pic: '',
+            //pic: '',
             desc_post: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus consequuntur deserunt commodi, nobis qui inventore corrupti iusto aliquid debitis unde non.Adipisci, pariatur.Molestiae, libero esse hic adipisci autem neque ?',
             date_created: '2029-01-22T16:28:32.615Z',
         },
@@ -60,7 +60,7 @@ function makePostsArray(users) {
             id: 3,
             user_id: users[2].id,
             title: 'Third test post!',
-            pic: '',
+            //pic: '',
             desc_post: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus consequuntur deserunt commodi, nobis qui inventore corrupti iusto aliquid debitis unde non.Adipisci, pariatur.Molestiae, libero esse hic adipisci autem neque ?',
             date_created: '2029-01-22T16:28:32.615Z',
         },
@@ -68,7 +68,7 @@ function makePostsArray(users) {
             id: 4,
             user_id: users[3].id,
             title: 'Fourth test post!',
-            pic: '',
+            //pic: '',
             desc_post: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus consequuntur deserunt commodi, nobis qui inventore corrupti iusto aliquid debitis unde non.Adipisci, pariatur.Molestiae, libero esse hic adipisci autem neque ?',
             date_created: '2029-01-22T16:28:32.615Z',
         },
@@ -119,7 +119,7 @@ function makeCommentsArray(posts, users) {
         {
             id: 4,
             post_id: posts[0].id || 1,
-            user_id: users[4].id,
+            user_id: users[3].id,
             desc_comment: 'test comment 4'
         },
     ];
@@ -170,7 +170,7 @@ function makeMaliciousPost(user) {
 
 function makeFixtures() {
     const testUsers = makeUsersArray()
-    const testPosts = makePostsArray()
+    const testPosts = makePostsArray(testUsers)
     const testComments = makeCommentsArray(testUsers, testPosts)
     const testFollowers = makeFollowersArray(testUsers)
     return { testUsers, testPosts, testComments, testFollowers }
@@ -268,13 +268,13 @@ module.exports = {
     makeCommentsArray,
     makeFollowersArray,
     makeFixtures,
-    seedFollowersTables,
+    //seedFollowersTables,
     cleanTables,
     seedUsers,
     seedPosts,
     seedComments,
     seedPostsTables,
-    seedMaliciousPost,
+    //seedMaliciousPost,
     makeAuthHeader,
     makeExpectedPost,
     makeMaliciousPost,
