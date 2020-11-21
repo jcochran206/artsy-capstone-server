@@ -27,7 +27,7 @@ const UsersService = {
             })
     },
 
-    validatePass(pwd) {
+    validatePass(pwd = "") {
         if (pwd.length < 8) {
             return 'Password must be longer than 8 characters'
         }

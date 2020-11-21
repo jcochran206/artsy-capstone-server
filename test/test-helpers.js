@@ -192,7 +192,7 @@ function cleanTables(db) {
                 Promise.all([
                     trx.raw(`ALTER SEQUENCE users_id_seq minvalue 0 START WITH 1`),
                     trx.raw(`ALTER SEQUENCE posts_id_seq minvalue 0 START WITH 1`),
-                    trx.raw(`ALTER SEQUENCE comments_seq minvalue 0 START WITH 1`),
+                    trx.raw(`ALTER SEQUENCE comments_id_seq minvalue 0 START WITH 1`),
                     trx.raw(`SELECT setval('users_id_seq', 0)`),
                     trx.raw(`SELECT setval('posts_id_seq', 0)`),
                     trx.raw(`SELECT setval('comments_id_seq', 0)`),

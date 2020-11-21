@@ -10,6 +10,7 @@ describe('Protected endpoints', function () {
     const {
         testUsers,
         testPosts,
+        testComments,
         testFollowers,
     } = helpers.makeFixtures()
 

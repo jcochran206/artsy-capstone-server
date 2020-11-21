@@ -3,7 +3,7 @@ const supertest = require('supertest')
 const app = require('../src/app')
 const helpers = require('./test-helpers')
 
-describe.only('Auth Endpoints', function () {
+describe('Auth Endpoints', function () {
 
     let db
 
@@ -30,7 +30,7 @@ describe.only('Auth Endpoints', function () {
             testUsers,
         )
 
-        const requiredFields = ['username', 'password']
+        const requiredFields = ['username', 'pwd']
 
         requiredFields.forEach(field => {
             const loginAttemptBody = {
