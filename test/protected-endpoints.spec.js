@@ -28,12 +28,12 @@ describe('Protected endpoints', function () {
 
     afterEach('cleanup', () => helpers.cleanTables(db))
 
-    beforeEach('insert data into tables', () => helpers.seedDecksCardsTables(
+    beforeEach('insert data into tables', () => helpers.seedFollowersTables(
         db,
         testUsers,
-        testDecks,
-        testCards,
-        testDecksCards
+        testPosts,
+        testComments,
+        testFollowers,
     )
     )
 
