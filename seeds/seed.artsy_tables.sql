@@ -41,10 +41,6 @@ INSERT INTO followers(followed_user_id, follower_user_id)
 VALUES
     ('1', '2'),
     ('1', '3'),
-    ('2', '1'),
-    ('5', '1'),
-    ('5', '2'),
-    ('5', '3'),
-    ('5', '4');
+    ('2', '1');
 
 COMMIT;
