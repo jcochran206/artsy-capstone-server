@@ -10,6 +10,8 @@
 ## 1. Working Prototype
 You can access a working prototype of the React app at: **https://artsy1.vercel.app**
 
+API Hosted at: https://serene-brook-48988.herokuapp.com
+
 Corresponding clientside React.js repo at: https://github.com/jcochran206/artsy-capstone-client
 
 
