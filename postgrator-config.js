@@ -1,5 +1,9 @@
 require('dotenv').config();
 
+// !IMPORTANT Correct SSL flag for Heroku
+const pg = require('pg');
+pg.defaults.ssl = process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false;
+
 module.exports = {
   "migrationDirectory": "migrations",
   "driver": "pg",
